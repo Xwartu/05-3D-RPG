@@ -1,7 +1,8 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Assets/skin.material" type="Material" id=1]
-[ext_resource path="res://Assets/cyborgFemaleA.png" type="Texture" id=3]
+[ext_resource path="res://Assets/criminalMaleA.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Blaster Kit/blasterG.glb" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -160,7 +161,7 @@ bind/44/bone = -1
 bind/44/pose = Transform( -0.992803, 0.00958511, -0.119373, -0.119664, -0.039574, 0.992026, 0.00478277, 0.999171, 0.0404359, -0.340618, -0.128335, -0.0149813 )
 
 [sub_resource type="SpatialMaterial" id=4]
-albedo_texture = ExtResource( 3 )
+albedo_texture = ExtResource( 2 )
 
 [sub_resource type="Animation" id=5]
 length = 1.25
@@ -4637,7 +4638,7 @@ animation = "Idle"
 animation = "Run"
 
 [sub_resource type="AnimationNodeBlendTree" id=22]
-graph_offset = Vector2( -151.35, 65.4075 )
+graph_offset = Vector2( 0, 121.5 )
 nodes/Idle/node = SubResource( 19 )
 nodes/Idle/position = Vector2( 130, 70 )
 nodes/Idle_Run/node = SubResource( 20 )
@@ -4886,6 +4887,13 @@ bones/44/bound_children = [  ]
 mesh = SubResource( 2 )
 skin = SubResource( 3 )
 material/0 = SubResource( 4 )
+
+[node name="BoneAttachment" type="BoneAttachment" parent="Root/Skeleton"]
+transform = Transform( -0.835233, 0.123223, 0.535923, 0.425685, -0.472081, 0.77197, 0.34812, 0.872899, 0.341843, -0.659713, 1.32184, 0.2506 )
+bone_name = "right_hand_thumb_1"
+
+[node name="blasterG" parent="Root/Skeleton/BoneAttachment" instance=ExtResource( 3 )]
+transform = Transform( -1.09578, 0.279392, -0.401514, 0.00823021, 0.995386, 0.670177, 0.489086, 0.609217, -0.910851, -0.333948, 0.38188, -0.316202 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Attack = SubResource( 5 )
