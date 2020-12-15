@@ -5,7 +5,7 @@ onready var Dialogue = get_node("/root/Game/UI/Dialogue")
 var dialogue = [	
 	"Hello, and welcome to Marksmen partner! Press E to continue.",
 	"How fast you thinkin' y'all can shoot?",
-	"Well, we're about to see. Please step right up and get those targets up in them trees.",
+	"Well, we're about to see. Please step right up and get those targets up in them trees, and then that drone if you will.",
 	"Get ready. Set. G-! Oh wait. You're needing to press E to begin... "
 ]
 

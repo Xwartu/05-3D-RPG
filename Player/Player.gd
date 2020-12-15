@@ -30,14 +30,22 @@ func _physics_process(delta):
 	var current_speed = velocity.length()
 	velocity = velocity.normalized() * clamp(current_speed, 0, max_speed)
 	velocity.y = falling
-	
-	$AnimationTree.set("parameters/Idle_Run/blend_amount", current_speed/max_speed)
+	if not $AnimationPlayer.is_playing():
+		$AnimationTree.active = true
+		$AnimationTree.set("parameters/Idle_Run/blend_amount", current_speed/max_speed)
 	velocity = move_and_slide(velocity, Vector3.UP, true)
 	
 	
 	if Input.is_action_just_pressed("shoot") and target != null and target.is_in_group("target"):
+		$AnimationTree.active = false
+		$AnimationPlayer.play("Shoot")
 		target.die()
-	
+	if global_transform.origin.y < -15:
+		get_tree().change_scene("res://Screens/Game_Over.tscn")
+	if Global.timer < 0:
+		get_tree().change_scene("res://Screens/Game_Over.tscn")
+	if get_node("/root/Game/Target_Container").get_child_count() == 0 and get_node("/root/Game/Drone_Container").get_child_count() == 0:
+		get_tree().change_scene("res://Screens/Win.tscn")
 func _input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * mouse_sensitivity)
@@ -58,4 +66,7 @@ func get_input():
 	input_dir = input_dir.normalized()
 	return input_dir
 
+func damage():
+	Global.update_score(-1)
+	get_node("/root/Game/UI").add_damage(0.5)
 	
