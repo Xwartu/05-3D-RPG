@@ -1,6 +1,10 @@
 extends KinematicBody
 
 onready var Camera = get_node("/root/Game/Player/Pivot/Camera")
+onready var Pivot = get_node("/root/Game/Player/Pivot")
+
+
+var target = null
 
 var velocity = Vector3()
 var gravity = -9.8
@@ -31,10 +35,14 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector3.UP, true)
 	
 	
+	if Input.is_action_just_pressed("shoot") and target != null and target.is_in_group("target"):
+		target.die()
+	
 func _input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * mouse_sensitivity)
-	
+		Pivot.rotate_x(event.relative.y * mouse_sensitivity)
+		Pivot.rotation_degrees.x = clamp(Pivot.rotation_degrees.x, -30, 15)
 func get_input():
 	var input_dir = Vector3()
 	if Input.is_action_pressed("forward"):
